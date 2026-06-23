@@ -28,7 +28,7 @@ int *p = (int *)&a;
 *p = 20;
 printf("%d", a); // 输出 20（值确实被改变了）
 ```
-* C++：由于常量折叠（Constant Folding）优化，编译器在编译时就把 a 替换成了 10。
+* C++：由于[常量折叠（Constant Folding）](https://github.com/scorpiopr/C-CplusplusLearning/blob/main/%E5%B8%B8%E9%87%8F%E6%8A%98%E5%8F%A0.md)优化，编译器在编译时就把 a 替换成了 10。
 ```CPP
 const int a = 10;
 int *p = const_cast<int*>(&a);
