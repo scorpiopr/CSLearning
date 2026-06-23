@@ -27,8 +27,7 @@ constexpr unsigned long long compile_time_factorial(int n) {
 }
 int main() {
     // 💥 芯片级震撼：传入的是常数 10，编译器在编译这条代码时，直接在底层把 3628800 算好了
-    // 最终生成的汇编代码中，这行代码退化为：
-    unsigned long long val = 3628800;
+    // 最终生成的汇编代码中，这行代码退化为：unsigned long long val = 3628800;
     // 运行期 0 毫秒开销，不需要任何函数栈帧的创建、压栈和跳转！
     constexpr auto val = compile_time_factorial(10); 
     
