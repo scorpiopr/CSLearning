@@ -17,19 +17,18 @@ struct Item {
     int id;
     std::string name;
     Item(int i, std::string s) : id(i), name(s) {} // 构造函数
-};std::vector<Item> v;
+};
+std::vector<Item> v;
 ```
 ## 1. 传入临时对象时
 
-* `v.push_back(Item(1, "test"));` 的底层动作：
-1. 在栈上调用 Item 的构造函数，生成一个临时对象。
-   2. push_back 接收到这个右值引用，在 vector 的内存中调用移动构造函数（或拷贝构造），把临时对象的数据搬过去。
-   3. 栈上的临时对象被析构。
-* 流程：1次构造 + 1次移动 + 1次析构。
-* `v.emplace_back(1, "test");` 的底层动作：
-1. `emplace_back` 利用 C++ 完美的参数转发 (std::forward)，直接把 1 和 "test" 传给 vector 内部预留的内存。
-2. 在该内存地址上直接调用 Item 的构造函数（利用定位 new 机制：placement new）。
-* 流程：1次构造（无临时对象，无移动，无析构）。
+* `v.push_back(Item(1, "test"));` 的底层动作：1次构造 + 1次移动 + 1次析构。
+    * 在栈上调用 Item 的构造函数，生成一个临时对象。
+    * push_back 接收到这个右值引用，在 vector 的内存中调用移动构造函数（或拷贝构造），把临时对象的数据搬过去。
+    * 栈上的临时对象被析构。
+* `v.emplace_back(1, "test");` 的底层动作：1次构造（无临时对象，无移动，无析构）。
+    * `emplace_back` 利用 C++ 完美的参数转发 (std::forward)，直接把 1 和 "test" 传给 vector 内部预留的内存。
+    * 在该内存地址上直接调用 Item 的构造函数（利用定位 new 机制：placement new）。
 
 ## 2. 传入已存在的对象时
 如果对象已经创建好了，两者的行为完全相同。
