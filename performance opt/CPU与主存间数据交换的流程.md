@@ -8,6 +8,8 @@
 2. Cache容量C，不包括有效位和标记位
 3. 每个组的Cache Line个数E
 4. Cache Line字节数B
+## Cache hit的条件
+当且仅当高速缓存行设置了有效位，而且标记位与w 的地址中的标记位相匹配时，这一行中包含w 的一个副本。
 ## 高速缓存查找流程
 举例来说, 如果Cache规格为：data cache: 32-KB, 8-way set associative, 64-byte line size, 32位主内存地址。
 即C=32K，E=8，B=64, m=32
